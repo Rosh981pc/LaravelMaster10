@@ -6,7 +6,7 @@
         <h3>{{$task->title}}</h3>
         <p>Created at: {{$task->created_at}}</p>
         <p>Description:<br/>{{$task->description}}</p>
-        <a href="{{route('tasks.show', ['id' => $task->id])}}">Ver mas..</a>
+        <a href="{{route('tasks.show', ['task' => $task->id])}}">Ver mas..</a>
         @if($task->completed)
         <h4 style="color: green;">COMPLETED</h4>
         @else

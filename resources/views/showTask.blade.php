@@ -15,4 +15,11 @@ TASK {{$task->id}}
 @else
 <h2 style="color: red;">NOT COMPLETED</h2>
 @endif
+<div>
+    <form action="{{ route('task.destroy', ['task'=> $task->id]) }}" method="POST">
+    @csrf
+    @method('DELETE')
+    <button type="submit">Delete</button>
+    </form>
+</div>
 @endsection

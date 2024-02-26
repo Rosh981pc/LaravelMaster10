@@ -3,9 +3,10 @@
     <head>
         <title>TaskApp</title>
         @yield('styles')
+        <script src="https://cdn.tailwindcss.com"></script>
     </head>
-    <body>
-        <h1 style="color: blue;">@yield('title')</h1>
+    <body class="container mx-auto mt-10 mb-10 max-w-lg">
+        <h1 class="text-3xl font-bold underline">@yield('title')</h1>
         <hr>
         <div>
             @if(session()->has('success'))

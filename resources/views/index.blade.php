@@ -1,20 +1,27 @@
 @extends('layouts.app')
+
 @section('title', 'LIST OF TASKS')
+
 @section('content')
+    <nav class="py-4">
+        <a class="text-lg" href="{{route('task.create')}}">Add a new task</a>
+    </nav>
     @forelse($tasks as $task)
     <div>        
-        <h3>{{$task->title}}</h3>
+        <a @class([ 'line-through'=>$task->completed])>
+            {{$task->title}} 
+        </a>
         <p>Created at: {{$task->created_at}}</p>
-        <p>Description:<br/>{{$task->description}}</p>
-        <a href="{{route('tasks.show', ['task' => $task->id])}}">Ver mas..</a>
-        @if($task->completed)
-        <h4 style="color: green;">COMPLETED</h4>
-        @else
-        <h4 style="color: red;">NOT COMPLETED</h4>
-        @endif
+        <a class="font-bold" href="{{route('tasks.show', ['task' => $task->id])}}">Ver mas..</a>
         <hr>
     </div>
     @empty
     <h3>No tasks!</h3>
     @endforelse
+    @if($tasks->count())
+        <nav class="py-3">
+            {{$tasks->links()}}
+        </nav>
+    @endif
+
 @endsection

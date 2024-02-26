@@ -16,6 +16,19 @@ TASK {{$task->id}}
 <h2 style="color: red;">NOT COMPLETED</h2>
 @endif
 <div>
+    <a href="{{route('home')}}">Back</a>
+    <br/>
+    <a href="{{route('tasks.edit',['task'=>$task->id])}}">Edit</a>
+    <br/>
+</div>
+<div>
+    <form action="{{ route('task.changeStatus', ['task'=> $task->id]) }}" method="POST">
+    @csrf
+    @method('PUT')
+    <button type="submit">Mark as {{$task->completed ? 'not completed' : 'completed' }}</button>
+    </form>
+</div>
+<div>
     <form action="{{ route('task.destroy', ['task'=> $task->id]) }}" method="POST">
     @csrf
     @method('DELETE')

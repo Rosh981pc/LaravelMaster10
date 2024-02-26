@@ -23,24 +23,12 @@ Route::get('/tasks/{task}', function(Task $task){
 })->name('tasks.show');
 
 Route::post('/tasks', function(TaskRequest $request){
-    // $data = $request->validated();
-    // $task = new Task;
-    // $task->title = $data['title'];
-    // $task->description = $data['description'];
-    // $task->long_description = $data['long_description'];
-    // $task->save();
     $task = Task::create($request->validated());
 
     return redirect()->route('tasks.show',['task'=> $task->id])->with('success','Task created successfully');
 })->name('task.store');
 
 Route::put('/tasks/{task}', function(Task $task, TaskRequest $request){
-    // $data = $request->validated();
-
-    // $task->title = $data['title'];
-    // $task->description = $data['description'];
-    // $task->long_description = $data['long_description'];
-    // $task->save();
     $task->update($request->validated());
 
     return redirect()->route('tasks.show',['task'=> $task->id])->with('success','Task updated successfully');
@@ -51,9 +39,14 @@ Route::delete('/tasks/delete/{task}', function(Task $task){
     return redirect()->route('home')->with('success','Task deleted successfully');
 })->name('task.destroy');
 
+Route::put('/tasks/complete/{task}', function(Task $task){
+    $task->toggleComplete();
+
+    return redirect()->back()->with('success','Task\'s status updated successfully!');
+})->name('task.changeStatus');
 Route::get('/', function () {
     return view('index',[
-        'tasks'=> Task::latest()->get()
+        'tasks'=> Task::latest()->paginate(10)
     ]);
 })->name('home');
 
